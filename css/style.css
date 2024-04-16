@@ -9,11 +9,15 @@
 
   --card-padding: 1.8rem;
 
-  --primary-shadow: 0 1rem 2rem var(--color-shadow)
+  --primary-shadow: 0 1rem 2rem var(--color-shadow);
+
+  --font-family: "M PLUS 1 Code", monospace;
 }
 
 body {
   background-color: var(--color-background);
+  font-family: var(--font-family);
+  color: white;
 }
 
 /* -- https://coolors.co/181a1e-202528-d68fd6-defff2-0ff4c6 -- */
@@ -21,6 +25,15 @@ body {
 /* -- HERO -- */
 .hero {
   height: 100vh;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 10px;
+}
+
+.hero #left {
+  font-size: 32px;
+  align-self: center;
 }
 
 /* -- SCROLLER -- */
