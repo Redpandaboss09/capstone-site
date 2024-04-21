@@ -1,0 +1,35 @@
+:root {
+    --color-background: #181a1e;
+    --color-lighter: #202528;
+    --color-white: #edeffd;
+    --color-white-variant: #a3bdcc;
+    --color-shadow: rgba(0, 0, 0, 0.4);
+
+    --card-radius: 2rem;
+
+    --card-padding: 1.8rem;
+
+    --primary-shadow: 0 1rem 2rem var(--color-shadow);
+
+    --font-family: "M PLUS 1 Code", monospace;
+
+    --magic-purple: rgb(123, 31, 162);
+    --magic-violet: rgb(103, 58, 183);
+    --magic-pink: rgb(244, 143, 177);
+}
+
+body {
+    background-color: var(--color-background);
+    font-family: var(--font-family);
+    color: white;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    text-align: justify;
+    line-height: 25px;
+}

@@ -12,6 +12,14 @@
   --primary-shadow: 0 1rem 2rem var(--color-shadow);
 
   --font-family: "M PLUS 1 Code", monospace;
+
+  --magic-purple: rgb(123, 31, 162);
+  --magic-violet: rgb(103, 58, 183);
+  --magic-pink: rgb(244, 143, 177);
+}
+
+html {
+  scroll-snap-type: y mandatory;
 }
 
 body {
@@ -20,33 +28,40 @@ body {
   color: white;
 }
 
-/* -- https://coolors.co/181a1e-202528-d68fd6-defff2-0ff4c6 -- */
+section {
+  height: 100vh;
+  scroll-snap-align: start;
+}
 
 /* -- HERO -- */
 .hero {
   height: 100vh;
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  grid-template-rows: 1fr;
-  grid-column-gap: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10% 0;
 }
 
-.hero #left {
-  font-size: 32px;
-  align-self: center;
+.hero .left h1 {
+  font-size: 64px;
 }
 
-/* -- SCROLLER -- */
+.hero .left h3 {
+  font-size: 24px;
+}
+
+/* -- SCROLLER CAROUSEL -- */
 .model-card {
   background: var(--color-lighter);
   padding: var(--card-padding);
   margin-top: 1rem;
   border-radius: var(--card-radius);
   box-shadow: var(--primary-shadow);
+  width: 300px;
 }
 
 .scroller {
-  max-width: 800px;
+  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -77,4 +92,470 @@ body {
   to {
     transform: translate(calc(-50% - 0.5rem));
   }
+}
+
+/* -- MODEL CARD -- */
+.model-top {
+  display: flex;
+}
+
+.model-top img {
+  display: block;
+  margin: 20px 25px 5px 20px;
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.model-top h4 {
+  font-size: 24px;
+}
+
+/* -- POPULAR AI -- */
+.popular-ai {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.model-explanation, .scroller {
+  width: 80%;
+  text-align: center;
+}
+
+/* -- SCROLL ANIMATION -- */
+.hidden {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateX(-100%);
+  transition: all 1s;
+}
+
+.show {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
+}
+
+@media(prefers-reduced-motion) {
+  .hidden {
+    transition: none;
+  }
+}
+
+/* -- BACKGROUND INFO -- */
+.background {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  grid-template-areas:
+    "msg msg"
+    "TL  TR"
+    "BL  BR";
+
+  text-align: center;
+}
+
+.message {
+  grid-area: msg;
+}
+
+.example-card {
+  position: relative;
+  transition: transform 1500ms;
+}
+
+.example-card:nth-child(1) {
+  grid-area: TL;
+}
+
+.example-card:nth-child(2) {
+  grid-area: TR;
+  transition-delay: 200ms;
+}
+
+.example-card:nth-child(3) {
+  grid-area: BL;
+}
+
+.example-card:nth-child(4) {
+  grid-area: BR;
+  transition-delay: 200ms;
+}
+
+/* -- EXPLANATION SECTION -- */
+.explanation {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* -- EXPLANATION FIRST PAGE -- */
+.explanation:nth-of-type(4) h2 {
+  font-size: 128px;
+}
+
+.explanation:nth-of-type(4) p {
+  font-size: 32px;
+}
+
+.explanation .show-loud {
+  display: inline-block;
+  font-weight: bold;
+  animation: loudEffect 1.2s ease-out;
+}
+
+@keyframes loudEffect {
+  0%, 100% {
+    transform: scale(1.0);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: scale(2.0);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes background-pan {
+  from {
+    background-position: 0% center;
+  }
+
+  to {
+    background-position: -200% center;
+  }
+}
+
+@keyframes scale {
+  from, to {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+h1 > .magic {
+  display: inline-block;
+  position: relative;
+}
+
+p > .magic > .magic-star {
+  --size: clamp(20px, 1.5vw, 30px);
+
+  animation: scale 700ms ease forwards;
+  display: block;
+  height: var(--size);
+  left: var(--star-left);
+  position: absolute;
+  top: var(--star-top);
+  width: var(--size);
+}
+
+p > .magic > .magic-star > svg {
+  animation: rotate 1000ms linear infinite;
+  display: block;
+  opacity: 0.7;
+}
+
+p > .magic > .magic-star > svg > path {
+  fill: var(--magic-purple);
+}
+
+p > .magic > .magic-text, p > .magic-text, h2 > .magic-text {
+  animation: background-pan 3s linear infinite;
+  background: linear-gradient(
+          to right,
+          var(--magic-purple),
+          var(--magic-violet),
+          var(--magic-pink),
+          var(--magic-purple)
+  );
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+}
+
+/* -- EXPLANATION SECOND PAGE -- */
+.explanation:nth-of-type(5) h2 {
+  font-size: 64px;
+}
+
+.explanation:nth-of-type(5) p {
+  font-size: 32px;
+}
+
+/* -- EXPLANATION THIRD PAGE -- */
+.explanation:nth-of-type(6) h2 {
+  font-size: 64px;
+}
+
+.explanation:nth-of-type(6) p {
+  font-size: 32px;
+}
+
+.explanation:nth-of-type(6) .matrix {
+  display: flex
+}
+
+.explanation:nth-of-type(6) .matrix table {
+  font-size: 24px;
+  position: relative;
+  margin: auto 5px;
+}
+
+.explanation:nth-of-type(6) .matrix table:before, table:after {
+  content: '';
+  height: 100%;
+  position: absolute;
+  border-color: white;
+  border-style: solid;
+  width: 10px;
+  top: -1px;
+}
+
+.explanation:nth-of-type(6) .matrix table:before {
+  left: -2px;
+  border-width: 2px 0px 2px 2px;
+}
+
+.explanation:nth-of-type(6) .matrix table:after {
+  right: -2px;
+  border-width: 2px 2px 2px 0px;
+}
+
+/* -- EXPLANATION FOURTH PAGE -- */
+.explanation:nth-of-type(7) h2 {
+  font-size: 64px;
+}
+
+.explanation:nth-of-type(7) p {
+  font-size: 32px;
+}
+
+/* -- EXPLANATION FIFTH PAGE -- */
+.explanation:nth-of-type(8) h2 {
+  font-size: 48px;
+}
+
+.explanation:nth-of-type(8) p {
+  font-size: 24px;
+}
+
+/* -- EXPLANATION PENULTIMATE PAGE -- */
+.explanation:nth-of-type(9) h2 {
+  font-size: 64px;
+}
+
+/* -- EXPLANATION LAST PAGE -- */
+.explanation:nth-of-type(10) h2 {
+  font-size: 64px;
+}
+
+.explanation:nth-of-type(10) p {
+  font-size: 32px;
+}
+
+.type-show:after {
+  content: '';
+  color: white;
+  animation: unknownTyper 10s linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes unknownTyper {
+  1% {
+    content:'p';
+  }
+  2% {
+    content:'pl';
+  }
+  3% {
+    content:'pla';
+  }
+  4% {
+    content:'plac';
+  }
+  5% {
+    content:'place';
+  }
+
+  11% {
+    content:'place';
+  }
+  14.5% {
+    content:'plac';
+  }
+  15% {
+    content:'pla';
+  }
+  15.5% {
+    content:'pl';
+  }
+  16% {
+    content:'p';
+  }
+  16.5% {
+    content:'';
+  }
+
+  18.5% {
+    content:'r';
+  }
+  21% {
+    content:'ro';
+  }
+  22% {
+    content:'roo';
+  }
+  23% {
+    content:'room';
+  }
+
+  28% {
+    content:'room';
+  }
+  35.5% {
+    content:'roo';
+  }
+  36% {
+    content:'ro';
+  }
+  36.5% {
+    content:'r';
+  }
+  37% {
+    content:'';
+  }
+
+  39% {
+    content:'h';
+  }
+  43% {
+    content:'ho';
+  }
+  44% {
+    content:'hou';
+  }
+  45% {
+    content:'hous';
+  }
+  46% {
+    content:'house';
+  }
+  47% {
+    content:'house';
+    color: var(--magic-purple);
+  }
+  99% {
+    content:'house';
+    color: white;
+  }
+  100% {
+    content:'house.';
+  }
+}
+
+/* -- MAGIC SCHOOL USES -- */
+.magic-school-cards {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  grid-template-areas:
+    "TC  TC"
+    "TL  TR"
+    "BL  BR";
+
+  text-align: center;
+}
+
+.school-top {
+  grid-area: TC;
+  padding-top: 20px;
+}
+
+.school-top h2 {
+  font-size: 32px;
+}
+
+.school-top p {
+  font-size: 24px;
+}
+
+.school-examples {
+  position: relative;
+  transition: transform 1500ms;
+}
+
+.school-examples:nth-child(1) {
+  grid-area: TL;
+}
+
+.school-examples:nth-child(2) {
+  grid-area: TR;
+  transition-delay: 200ms;
+}
+
+.school-examples:nth-child(3) {
+  grid-area: BL;
+}
+
+.school-examples:nth-child(4) {
+  grid-area: BR;
+  transition-delay: 200ms;
+}
+
+/* -- CURRENT USE -- */
+.current-uses {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10% 0;
+}
+
+.current-uses img {
+  transform: scale(0.75);
+  transition-delay: 200ms;
+}
+
+.current-uses h2 {
+  font-size: 32px;
+}
+
+.current-uses p {
+  font-size: 24px;
+}
+
+/* -- WRAP UP -- */
+.wrap-up {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.wrap-up h2 {
+  font-size: 64px;
 }
